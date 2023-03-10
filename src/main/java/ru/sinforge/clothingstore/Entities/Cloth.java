@@ -3,6 +3,7 @@ package ru.sinforge.clothingstore.Entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ru.sinforge.clothingstore.Entities.Enums.Gender;
 
 import java.util.List;
 

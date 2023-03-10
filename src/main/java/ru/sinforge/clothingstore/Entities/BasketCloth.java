@@ -15,10 +15,10 @@ public class BasketCloth {
 
 
     @OneToOne
-    private User id_user;
+    private User user;
 
     @OneToOne
-    private Cloth id_cloth;
+    private Cloth cloth;
 
     private boolean is_paid;
 

@@ -1,4 +1,4 @@
-package ru.sinforge.clothingstore.Entities;
+package ru.sinforge.clothingstore.Entities.Enums;
 
 public enum Gender {
     Male,
