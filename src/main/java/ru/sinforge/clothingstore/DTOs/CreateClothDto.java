@@ -7,17 +7,17 @@ import java.util.List;
 
 public class CreateClothDto {
 
-    private String name;
+    public String name;
 
-    private String brand_name;
+    public String brand_name;
 
-    private String section;
+    public String section;
 
-    private Gender gender;
+    public String gender;
 
-    private String color;
+    public String color;
 
-    private List<String> sizes;
+    public List<String> sizes;
 
-    private int price;
+    public int price;
 }
