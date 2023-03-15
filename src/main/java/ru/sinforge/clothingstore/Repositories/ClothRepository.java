@@ -7,4 +7,5 @@ import ru.sinforge.clothingstore.Entities.Cloth;
 @Repository
 public interface ClothRepository extends JpaRepository<Cloth, Long> {
     boolean existsByName(String name);
+
 }

@@ -1,9 +1,9 @@
-package ru.sinforge.clothingstore.Services.Impl;
+package ru.sinforge.clothingstore.Services;
 
 import org.springframework.stereotype.Service;
 import ru.sinforge.clothingstore.Entities.Cloth;
 import ru.sinforge.clothingstore.Repositories.ClothRepository;
-import ru.sinforge.clothingstore.Services.ClothService;
+import ru.sinforge.clothingstore.Services.Impl.ClothService;
 
 @Service
 public class ClothServiceImpl implements ClothService {
@@ -20,5 +20,10 @@ public class ClothServiceImpl implements ClothService {
         }
         _clothRepository.save(cloth);
         return true;
+    }
+
+    @Override
+    public Iterable<Cloth> getAll() {
+        return _clothRepository.findAll();
     }
 }
