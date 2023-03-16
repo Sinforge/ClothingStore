@@ -1,4 +1,4 @@
-package ru.sinforge.clothingstore.Services.Impl;
+package ru.sinforge.clothingstore.Services;
 
 import ru.sinforge.clothingstore.Entities.Cloth;
 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<h1>Регистрация</h1>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<form method="post">
+    <input type="text" name="email"/>
+    <input type="text" name="country"/>
+    <input type="text" name="name"/>
+    <input type="text" name="surname"/>
+    <input type="text" name="password"/>
+    <input type="submit" value="Register"/>
+</form>
+</body>
+</html>

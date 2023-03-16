@@ -6,4 +6,5 @@ import ru.sinforge.clothingstore.Entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    User getByEmail(String email);
 }

@@ -2,7 +2,6 @@ package ru.sinforge.clothingstore.Controllers;
 
 
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +9,7 @@ import ru.sinforge.clothingstore.DTOs.CreateClothDto;
 import ru.sinforge.clothingstore.DTOs.ReadClothDto;
 import ru.sinforge.clothingstore.Entities.Cloth;
 import ru.sinforge.clothingstore.Mappers.ClothMapper;
-import ru.sinforge.clothingstore.Services.Impl.ClothService;
-
-import java.util.ArrayList;
+import ru.sinforge.clothingstore.Services.ClothService;
 
 @RestController
 @RequestMapping("/cloth")
