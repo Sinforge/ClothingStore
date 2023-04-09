@@ -3,6 +3,7 @@ package ru.sinforge.clothingstore.Services.Impl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.sinforge.clothingstore.Entities.Enums.Role;
 import ru.sinforge.clothingstore.Entities.User;
 import ru.sinforge.clothingstore.Repositories.UserRepository;
 import ru.sinforge.clothingstore.Services.UserService;
@@ -18,9 +19,10 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public boolean addUser(User user) {
-        if(_userRepository.getByEmail(user.getEmail()) == null) {
+        if(_userRepository.getByEmail(user.getEmail()) != null) {
             return false;
         }
+        user.setRole(Role.USER);
         _userRepository.save(user);
         return true;
     }

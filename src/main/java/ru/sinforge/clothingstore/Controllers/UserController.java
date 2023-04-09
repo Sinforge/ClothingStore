@@ -28,14 +28,11 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registrationPost(@ModelAttribute CreateUserDto createUserDto) {
+    public String registrationPost(CreateUserDto createUserDto) {
         User user = _userMapper.createUserDtoToUser(createUserDto);
-        if(_userService.addUser(user)) {
+        if(!_userService.addUser(user)) {
             return "registration";
         }
         return "login";
-
-
-
     }
 }
