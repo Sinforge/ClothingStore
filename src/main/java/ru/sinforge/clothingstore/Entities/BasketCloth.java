@@ -1,6 +1,7 @@
 package ru.sinforge.clothingstore.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +20,5 @@ public class BasketCloth {
 
     @OneToOne
     private Cloth cloth;
-
-    private boolean is_paid;
-
-    private int price;
 
 }

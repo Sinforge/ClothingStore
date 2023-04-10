@@ -43,6 +43,11 @@ public class ClothServiceImpl implements ClothService {
     }
 
     @Override
+    public Cloth getClothById(Long id) {
+        return _clothRepository.getClothById(id);
+    }
+
+    @Override
     public Iterable<Cloth> getAll() {
         return _clothRepository.findAll();
     }
