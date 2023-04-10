@@ -8,6 +8,7 @@ import ru.sinforge.clothingstore.Entities.User;
 
 @Mapper
 public interface UserMapper {
-    @Mapping(target = "email", source = "email")
+
+    @Mapping(target ="country", source = "country")
     User createUserDtoToUser(CreateUserDto createUserDto);
 }

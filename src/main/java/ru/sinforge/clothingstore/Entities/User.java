@@ -21,7 +21,7 @@ public class User implements UserDetails {
     private Long id;
 
     // Idenify by unique email
-    private String email;
+    public String email;
 
     private String country;
 

@@ -6,13 +6,14 @@ public class ReadClothDto {
 
     public String name;
 
+    public String description;
     public String brand_name;
 
     public String section;
 
     public String gender;
 
-    public String color;
+    public List<String> color;
 
     public List<String> sizes;
 

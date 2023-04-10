@@ -19,16 +19,19 @@ public class Cloth {
 
     private String name;
 
+    private String description;
+
     private String brand_name;
 
     private String section;
 
     private Gender gender;
 
-    private String color;
+    @ElementCollection
+    public List<String> colors;
 
     @ElementCollection
-    private List<String> sizes;
+    public List<String> sizes;
 
     private int price;
 

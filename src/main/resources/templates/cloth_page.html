@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="#" method="post"  enctype="multipart/form-data">
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" required>
+
+        <label for="description">Description</label>
+        <input  id="description" type="text" name="description" required>
+
+        <label for="brand_name">Brand_name</label>
+        <input  id="brand_name" type="text" name="brand_name" required>
+
+        <label for="section">Section</label>
+        <input  id="section" type="text" name="section" required>
+
+        <label for="gender">Gender</label>
+        <input id="gender" type="text" name="gender" required>
+
+        <label  >Colors</label>
+        <input  type="checkbox" name="colors" value="red" />
+        <input type="checkbox" name="colors" value="blue" />
+        <input type="checkbox" name="colors" value="orange" />
+        <input type="checkbox" name="colors" value="purple" />
+        <input type="checkbox" name="colors" value="yellow" />
+        <input type="checkbox" name="colors" value="green" />
+        <input type="checkbox" name="colors" value="black" />
+        <input type="checkbox" name="colors" value="white" />
+
+
+
+
+        <label  >Sizes</label>
+        <input   type="checkbox" name="sizes" value="XS" >
+        <input   type="checkbox" name="sizes" value="S" >
+        <input   type="checkbox" name="sizes" value="M" >
+        <input   type="checkbox" name="sizes" value="L" >
+        <input   type="checkbox" name="sizes" value="XL" >
+        <input   type="checkbox" name="sizes" value="XXL" >
+
+
+        <label for="price">Price</label>
+        <input  id="price" type="text" name="price" required>
+
+        <label for="img">Img</label>
+        <input  id="img" type="file" name="img" required>
+
+        <input type="submit" value="Create">
+
+</form>
+
+<script>
+        FormData
+        var object = {};
+        formData.forEach(function(value, key){
+                object[key] = value;
+        });
+        var json = JSON.stringify(object);
+
+</script>
+
+</body>
+</html>
