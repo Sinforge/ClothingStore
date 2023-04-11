@@ -3,10 +3,6 @@ package ru.sinforge.clothingstore.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +23,7 @@ public class AdminController {
     @GetMapping("/create_cloth_page")
     public String createClothPage(Model model) {
 
-        return "cloth_page";
+        return "create_cloth_page";
     }
 
     // TODO : idk why my CreateClothDto object dont mapping by Spring Controller - need to fix

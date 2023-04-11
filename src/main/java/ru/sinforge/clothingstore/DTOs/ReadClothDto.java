@@ -4,6 +4,7 @@ import java.util.List;
 
 public class ReadClothDto {
 
+    public Long id;
     public String name;
 
     public String description;
