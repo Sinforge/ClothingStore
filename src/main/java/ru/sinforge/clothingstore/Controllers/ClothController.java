@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.sinforge.clothingstore.DTOs.CreateClothDto;
+import ru.sinforge.clothingstore.DTOs.CreateCommentDto;
 import ru.sinforge.clothingstore.DTOs.ReadClothDto;
 import ru.sinforge.clothingstore.Entities.Cloth;
+import ru.sinforge.clothingstore.Entities.Comment;
 import ru.sinforge.clothingstore.Entities.User;
 import ru.sinforge.clothingstore.Mappers.ClothMapper;
 import ru.sinforge.clothingstore.Services.BasketService;
@@ -51,15 +53,19 @@ public class ClothController {
     @GetMapping("/image/{name}")
     @ResponseBody
     public byte[] getImage(@PathVariable String name) throws IOException {
-        File serverFile = new File(path + "/" + name + ".png");
+        File serverFile = new File(path + "clothImages/" + name + ".png");
         return Files.readAllBytes(serverFile.toPath());
 
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
-    public Cloth getClothById(@PathVariable Long id) {
-        return _clothService.getClothById(id);
+    public String getClothById(@PathVariable Long id, Model model) {
+        var check = _clothMapper.clothToReadClothDto(_clothService.getClothById(id));
+        model.addAttribute("clothData", check);
+        model.addAttribute("comments", _clothService.getAllComment(id));
+
+        return "cloth_page";
+
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -79,4 +85,16 @@ public class ClothController {
         return _basketService.payOrder(ids, user);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/leave")
+    public String leaveComment(@RequestParam Long clothid, @RequestParam String text, @AuthenticationPrincipal User user) {
+        Comment comment = new Comment();
+        comment.setClothid(clothid);
+        comment.setText(text);
+        comment.setUserid(user.getId());
+        comment.setUsername(user.getUsername());
+        _clothService.saveComment(comment);
+        return "redirect:/cloth/" + clothid;
+
+    }
 }

@@ -8,7 +8,7 @@
 <div id="list-of-cloth">
     <div th:each="cloth : ${allCloth}">
         <a th:href="${'/cloth/' + cloth.id}">
-            <img th:src="${'/cloth/image/' + cloth.name + cloth.brand_name}">
+            <img width="150" height="150" th:src="${'/cloth/image/' + cloth.name + cloth.brand_name}">
             <p th:text="${cloth.name}"></p>
             <p th:text="${cloth.description}"></p>
             <p th:text="${cloth.price}"></p>

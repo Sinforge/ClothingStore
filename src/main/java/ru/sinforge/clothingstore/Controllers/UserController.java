@@ -1,19 +1,23 @@
 package ru.sinforge.clothingstore.Controllers;
 
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import ru.sinforge.clothingstore.DTOs.CreateUserDto;
 import ru.sinforge.clothingstore.Entities.User;
 import ru.sinforge.clothingstore.Mappers.UserMapper;
 import ru.sinforge.clothingstore.Services.UserService;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 @Controller
 public class UserController {
+    @Value("${upload.path}")
+    private String path;
 
     private final UserMapper _userMapper = Mappers.getMapper(UserMapper.class);
     private final UserService _userService;
@@ -34,5 +38,24 @@ public class UserController {
             return "registration";
         }
         return "login";
+    }
+
+    @GetMapping("/image/{name}")
+    @ResponseBody
+    public byte[] getImage(@PathVariable String name){
+        File serverFile = null;
+        byte[] bytes = null;
+        try {
+            serverFile = new File(path + "userAvatars/" + name + ".png");
+            bytes = Files.readAllBytes(serverFile.toPath());
+        }
+        catch (Exception ex) {
+            serverFile = new File(path + "userAvatars/anon.png");
+            bytes = Files.readAllBytes(serverFile.toPath());
+        }
+        finally {
+            return bytes;
+        }
+
     }
 }

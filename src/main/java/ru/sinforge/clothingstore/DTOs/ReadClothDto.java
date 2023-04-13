@@ -14,9 +14,9 @@ public class ReadClothDto {
 
     public String gender;
 
-    public List<String> color;
+    public String colors;
 
-    public List<String> sizes;
+    public String sizes;
 
     public int price;
 }
