@@ -17,7 +17,7 @@ import java.util.List;
 public class BasketServiceImpl implements BasketService {
     private final BasketClothRepository _basketRepo;
     private final ClothRepository _clothRepo;
-    public Boolean addToBasket(User user, Long id) {
+    public Boolean addToBasket(User user, Long id, String size, String color) {
         Cloth cloth = _clothRepo.getClothById(id);
         if (cloth == null) {
             return false;
@@ -25,6 +25,8 @@ public class BasketServiceImpl implements BasketService {
         BasketCloth basketCloth = new BasketCloth();
         basketCloth.setCloth(cloth);
         basketCloth.setUser(user);
+        basketCloth.setSize(size);
+        basketCloth.setColor(color);
         _basketRepo.save(basketCloth);
         return true;
 
@@ -35,6 +37,11 @@ public class BasketServiceImpl implements BasketService {
         var toDelete = _basketRepo.findAllByListIdsAndUser(ids, user) ;
         _basketRepo.deleteAll(toDelete);
         return true;
+    }
+
+    @Override
+    public List<BasketCloth> getBasketByUser(User user) {
+        return _basketRepo.findAllByUser(user);
     }
 
 }

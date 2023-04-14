@@ -17,7 +17,16 @@
                 <p th:text="${'Available colors :' + clothData.colors}" ></p>
                 <p th:text="${'Gender: ' + clothData.gender}"></p>
             </div>
+
         </div>
+        <form sec:authorize="isAuthenticated()"  th:action="${'/cloth/addToBasket/' + clothData.id}" method="post">
+            <select name="size">
+                <option  th:each="size : ${clothData.sizes.split(', ')}" th:text="${size}" th:value="${size}"></option>
+            </select>
+            <select name="color">
+                <option  th:each="color : ${clothData.colors.split(', ')}" th:text="${color}" th:value="${color}"></option>
+            </select>
+            <input type="submit" value="Add to Basket"></form>
         <div>
             <p th:text="${clothData.description}"></p>
         </div>

@@ -63,26 +63,34 @@ public class ClothController {
         var check = _clothMapper.clothToReadClothDto(_clothService.getClothById(id));
         model.addAttribute("clothData", check);
         model.addAttribute("comments", _clothService.getAllComment(id));
-
         return "cloth_page";
 
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/addToBasket/{id}")
-    public Boolean addToBasket(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    public String addToBasket(@PathVariable Long id, @RequestParam String color, @RequestParam String size,
+                              @AuthenticationPrincipal User user) {
         Boolean isGood = false;
         if (user != null) {
-            isGood = _basketService.addToBasket(user, id);
+            isGood = _basketService.addToBasket(user, id, color, size);
         }
-        return isGood;
+        return "redirect:/cloth/" + id;
     }
 
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/payOrder")
-    public Boolean payOrder(@RequestBody List<Long> ids, @AuthenticationPrincipal User user) {
-        return _basketService.payOrder(ids, user);
+    @GetMapping("/basket")
+    public String getBasket(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("basketData",_basketService.getBasketByUser(user));
+        return "basket";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/basket")
+    public String payOrder(@RequestParam List<Long> ids, @AuthenticationPrincipal User user) {
+        _basketService.payOrder(ids, user);
+        return "redirect:/cloth/basket";
     }
 
     @PreAuthorize("isAuthenticated()")

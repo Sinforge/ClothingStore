@@ -18,7 +18,12 @@ public class BasketCloth {
     @OneToOne
     private User user;
 
+
     @OneToOne
     private Cloth cloth;
 
+
+    private String color;
+
+    private String size;
 }

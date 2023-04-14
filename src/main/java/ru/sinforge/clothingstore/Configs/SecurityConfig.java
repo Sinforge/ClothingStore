@@ -25,7 +25,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/registration").permitAll()
+                        .requestMatchers("/", "/home", "/registration", "/cloth/**", "/image/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)

@@ -17,4 +17,7 @@ public interface BasketClothRepository extends JpaRepository<BasketCloth, Long> 
             value= "SELECT b FROM BasketCloth b WHERE b.cloth.id in :ids and b.user = :user"
     )
     List<BasketCloth> findAllByListIdsAndUser(@Param("ids") List<Long> ids, @Param("user")User user);
+
+
+    List<BasketCloth> findAllByUser(User user);
 }

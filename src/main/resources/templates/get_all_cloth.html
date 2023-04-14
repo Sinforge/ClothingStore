@@ -5,9 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<div id="list-of-cloth">
+<div style="display: flex" id="list-of-cloth">
     <div th:each="cloth : ${allCloth}">
-        <a th:href="${'/cloth/' + cloth.id}">
+        <a style="text-decoration: none;" th:href="${'/cloth/' + cloth.id}">
             <img width="150" height="150" th:src="${'/cloth/image/' + cloth.name + cloth.brand_name}">
             <p th:text="${cloth.name}"></p>
             <p th:text="${cloth.description}"></p>
