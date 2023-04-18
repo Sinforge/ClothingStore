@@ -2,7 +2,9 @@ package ru.sinforge.clothingstore.Services.Impl;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.sinforge.clothingstore.Configs.SecurityConfig;
 import ru.sinforge.clothingstore.Entities.Enums.Role;
 import ru.sinforge.clothingstore.Entities.User;
 import ru.sinforge.clothingstore.Repositories.UserRepository;
@@ -15,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
 
     public UserServiceImpl(UserRepository userRepository) {
+
         _userRepository = userRepository;
     }
     @Override
@@ -22,6 +25,7 @@ public class UserServiceImpl implements UserService {
         if(_userRepository.getByEmail(user.getEmail()) != null) {
             return false;
         }
+        user.setPassword(SecurityConfig.passwordEncoder().encode(user.getPassword()));
         user.setRole(Role.USER);
         _userRepository.save(user);
         return true;
