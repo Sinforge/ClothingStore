@@ -3,6 +3,7 @@ package ru.sinforge.clothingstore.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class AdminController {
     private final ClothService _clothService;
     private final ClothMapper _clothMapper = Mappers.getMapper(ClothMapper.class);
@@ -43,5 +45,11 @@ public class AdminController {
             return "redirect:/";
         }
         return "redirect:/cloth/all";
+    }
+
+    @PostMapping("/delete_comment")
+    public String DeleteComment(@RequestParam Long commentId, @RequestParam Long clothId) {
+        _clothService.deleteComment(commentId);
+        return "redirect:/cloth/" + clothId;
     }
 }

@@ -5,14 +5,93 @@
     <title>Title</title>
 </head>
 <body>
-<div style="display: flex" id="list-of-cloth">
-    <div th:each="cloth : ${allCloth}">
-        <a style="text-decoration: none;" th:href="${'/cloth/' + cloth.id}">
-            <img width="150" height="150" th:src="${'/cloth/image/' + cloth.name + cloth.brand_name}">
-            <p th:text="${cloth.name}"></p>
-            <p th:text="${cloth.description}"></p>
-            <p th:text="${cloth.price}"></p>
-        </a>
+<div style="display: flex; flex-direction: column">
+    <div id="filter" style="display: flex; flex-direction: column">
+
+        <label>Name of cloth</label><input name="name" id="name">
+
+        <label>Choose sizes<input  type="checkbox" name="sizes" th:each="size : ${allSizes}" th:value="${size}" th:text="${size}"></label>
+        <label>Choose brands<input type="checkbox" name="brandNames" th:each="brand : ${allBrands}" th:value="${brand}" th:text="${brand}"></label>
+        <label>Choose gender
+            <select id="gender" name="gender" size="1">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Unisex">Unisex</option>
+
+            </select>
+        </label>
+        <label>Choose sections<input type="checkbox" name="sections" th:each="section : ${allSections}" th:value="${section}" th:text="${section}"></label>
+        <label>Choose colors<input type="checkbox" name="colors" th:each="color : ${allColors}" th:value="${color}" th:text="${color}"></label>
+        <label>Minimal Price<input id="minPrice" name="minPrice" value="-1"></label>
+        <label>Maximal Price<input id="maxPrice" name="maxPrice" value="-1"></label>
+
+        <button id="filterClothes">Filter clothes</button>
+        <script>
+            let filterObj = {
+                name: null,
+                brandNames: [],
+                sections: [],
+                gender: null,
+                colors: [],
+                sizes: [],
+                minPrice: -1,
+                maxPrice: -1
+            }
+            let filterButton = document.getElementById('filterClothes')
+            filterButton.addEventListener('click', ()=> {
+                filterObj.name = document.getElementById('name').value;
+                let sizes = document.querySelectorAll('input[name=sizes]:checked');
+                for (let i =0 ;i < sizes.length;i++) {
+                    filterObj.sizes.push(sizes[i].value);
+                }
+                let brands = document.querySelectorAll('input[name=brandNames]:checked');
+
+                for (let i =0 ;i < brands.length;i++) {
+                    filterObj.brandNames.push(brands[i].value);
+                }
+                filterObj.gender = document.getElementById('gender').value;
+                let sections = document.querySelectorAll('input[name=sections]:checked');
+                for (let i =0 ;i < sections.length;i++) {
+                    filterObj.sections.push(sections[i].value);
+                }
+                let colors = document.querySelectorAll('input[name=colors]:checked');
+                for (let i =0 ;i < colors.length;i++) {
+                    filterObj.colors.push(colors[i].value);
+                }
+                filterObj.minPrice = Number(document.getElementById('minPrice').value);
+                filterObj.maxPrice = Number(document.getElementById('maxPrice').value);
+
+                fetch("/cloth/all/filtered",
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: JSON.stringify(filterObj)
+                    })
+                    .then(function(res){ return res.text(); })
+                    .then(function(html){ document.body.innerHTML = html;  });
+
+
+
+
+            });
+        </script>
+
+
+    </div>
+
+    </div>
+    <div style="display: flex" id="list-of-cloth">
+        <div th:each="cloth : ${allCloth}" style="width: 150px">
+            <a style="text-decoration: none;" th:href="${'/cloth/' + cloth.id}">
+                <img width="150" height="150" th:src="${'/cloth/image/' + cloth.name + cloth.brand_name}">
+                <p th:text="${cloth.name}"></p>
+                <p th:text="${cloth.description}"></p>
+                <p th:text="${cloth.price}"></p>
+            </a>
+
+        </div>
 
     </div>
 
