@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+<div th:insert="~{header_component.html}"></div>
+
 
 <form action="#" method="post"  enctype="multipart/form-data">
         <label for="name">Name</label>
@@ -23,25 +25,31 @@
         <input id="gender" type="text" name="gender" required>
 
         <label  >Colors</label>
-        <input  type="checkbox" name="colors" value="red" />
-        <input type="checkbox" name="colors" value="blue" />
-        <input type="checkbox" name="colors" value="orange" />
-        <input type="checkbox" name="colors" value="purple" />
-        <input type="checkbox" name="colors" value="yellow" />
-        <input type="checkbox" name="colors" value="green" />
-        <input type="checkbox" name="colors" value="black" />
-        <input type="checkbox" name="colors" value="white" />
+        <label>Red<input  type="checkbox" name="colors" value="red" /> </label>
+        <label>  Blue     <input type="checkbox" name="colors" value="blue" />
+        </label>
+        <label>Orange<input type="checkbox" name="colors" value="orange" /></label>
+        <label>Purple<input type="checkbox" name="colors" value="purple" /></label>
+        <label>Yellow<input type="checkbox" name="colors" value="yellow" /></label>
+        <label>Green<input type="checkbox" name="colors" value="green" /></label>
+        <label>Black<input type="checkbox" name="colors" value="black" /></label>
+        <label>White<input type="checkbox" name="colors" value="white" /></label>
+
+
+
+
+
 
 
 
 
         <label  >Sizes</label>
-        <input   type="checkbox" name="sizes" value="XS" >
-        <input   type="checkbox" name="sizes" value="S" >
-        <input   type="checkbox" name="sizes" value="M" >
-        <input   type="checkbox" name="sizes" value="L" >
-        <input   type="checkbox" name="sizes" value="XL" >
-        <input   type="checkbox" name="sizes" value="XXL" >
+        <label>XS<input   type="checkbox" name="sizes" value="XS" ></label>
+        <label>S<input   type="checkbox" name="sizes" value="S" ></label>
+        <label>M<input   type="checkbox" name="sizes" value="M" ></label>
+        <label>L<input   type="checkbox" name="sizes" value="L" ></label>
+        <label>XL<input   type="checkbox" name="sizes" value="XL" ></label>
+        <label>XXL<input   type="checkbox" name="sizes" value="XXL" ></label>
 
 
         <label for="price">Price</label>

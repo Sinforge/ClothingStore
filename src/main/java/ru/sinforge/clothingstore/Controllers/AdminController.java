@@ -52,4 +52,21 @@ public class AdminController {
         _clothService.deleteComment(commentId);
         return "redirect:/cloth/" + clothId;
     }
+    @PostMapping("/delete_page")
+    public String DeletePage(@RequestParam Long clothid) {
+        _clothService.deletePage(clothid);
+        return "redirect:/cloth/all";
+    }
+    @GetMapping("/change_page")
+    public String ChangePage(@RequestParam Long clothid, Model model) {
+        model.addAttribute("clothData", _clothService.getClothById(clothid));
+        return "edit-cloth-page";
+
+
+    }
+    @PostMapping("/change_page")
+    public String SaveChanges(Cloth cloth, @RequestParam MultipartFile img) {
+        _clothService.saveChanges(cloth, img);
+        return "redirect:/cloth/" + cloth.getId();
+    }
 }

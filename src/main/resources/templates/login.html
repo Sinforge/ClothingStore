@@ -4,6 +4,8 @@
   <title>Spring Security Example </title>
 </head>
 <body>
+<div th:insert="~{header_component.html}"></div>
+
 <div th:if="${param.error}">
   Invalid username and password.
 </div>

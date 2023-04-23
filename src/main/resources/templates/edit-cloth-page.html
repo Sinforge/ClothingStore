@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header_component.html}"></div>
+
+
+<form action="#" method="post"  enctype="multipart/form-data">
+    <input hidden th:value="${clothData.id}" type="number" name="id">
+
+    <label for="name">Name</label>
+    <input th:value="${clothData.name}" id="name" type="text" name="name" required>
+
+    <label for="description">Description</label>
+    <input  th:value="${clothData.description}" id="description" type="text" name="description" required>
+
+    <label for="brand_name">Brand_name</label>
+    <input th:value="${clothData.brand_name}"  id="brand_name" type="text" name="brand_name" required>
+
+    <label for="section">Section</label>
+    <input th:value="${clothData.section}"  id="section" type="text" name="section" required>
+
+    <label for="gender">Gender</label>
+    <input th:value="${clothData.gender}" id="gender" type="text" name="gender" required>
+    <div>
+        <label  >Colors</label>
+        <label>Red<input  type="checkbox" name="colors" value="red" th:checked="${clothData.colors.contains('red')}" /> </label>
+        <label>  Blue     <input type="checkbox" name="colors" value="blue" th:checked="${clothData.colors.contains('blue')}" />
+        </label>
+        <label>Orange<input type="checkbox" name="colors" value="orange" th:checked="${clothData.colors.contains('orange')}" /></label>
+        <label>Purple<input type="checkbox" name="colors" value="purple" th:checked="${clothData.colors.contains('purple')}" /></label>
+        <label>Yellow<input type="checkbox" name="colors" value="yellow" th:checked="${clothData.colors.contains('yellow')}" /></label>
+        <label>Green<input type="checkbox" name="colors" value="green" th:checked="${clothData.colors.contains('green')}" /></label>
+        <label>Black<input type="checkbox" name="colors" value="black" th:checked="${clothData.colors.contains('black')}" /></label>
+        <label>White<input type="checkbox" name="colors" value="white" th:checked="${clothData.colors.contains('white')}" /></label>
+    </div>
+
+    <div>
+        <label  >Sizes</label>
+        <label>XS<input   type="checkbox" name="sizes" value="XS" th:checked="${clothData.sizes.contains('XS')}" ></label>
+        <label>S<input   type="checkbox" name="sizes" value="S" th:checked="${clothData.sizes.contains('S')}" ></label>
+        <label>M<input   type="checkbox" name="sizes" value="M" th:checked="${clothData.sizes.contains('M')}" ></label>
+        <label>L<input   type="checkbox" name="sizes" value="L" th:checked="${clothData.sizes.contains('L')}" ></label>
+        <label>XL<input   type="checkbox" name="sizes" value="XL" th:checked="${clothData.sizes.contains('XL')}" ></label>
+        <label>XXL<input   type="checkbox" name="sizes" value="XXL" th:checked="${clothData.sizes.contains('XXL')}" ></label>
+    </div>
+
+
+
+    <label for="price">Price</label>
+    <input th:value="${clothData.price}" id="price" type="text" name="price" required>
+
+    <label for="img">Img</label>
+    <input  id="img" type="file" name="img">
+
+    <input type="submit" value="Save changes">
+
+</form>
+
+<script>
+    FormData
+    var object = {};
+    formData.forEach(function(value, key){
+        object[key] = value;
+    });
+    var json = JSON.stringify(object);
+
+</script>
+
+</body>
+</html>

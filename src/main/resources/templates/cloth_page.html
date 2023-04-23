@@ -6,7 +6,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
+<div th:insert="~{header_component.html}"></div>
+
     <div>
         <div style="display: flex; width: 100%">
             <img width="300" height="300" th:src="${'/cloth/image/' + clothData.name + clothData.brand_name}">
@@ -16,6 +19,16 @@
                 <p th:text="${'Available sizes :' + clothData.sizes}" ></p>
                 <p th:text="${'Available colors :' + clothData.colors}" ></p>
                 <p th:text="${'Gender: ' + clothData.gender}"></p>
+            </div>
+            <div sec:authorize="hasAnyAuthority('ADMIN')">
+                <form action="/change_page" id="change_page" method="get">
+                    <input hidden name="clothid" type="number" th:value="${clothData.id}" >
+                    <input type="submit" value="Enter in edit mode">
+                </form>
+                <form action="/delete_page" id="delete_page" method="post">
+                    <input hidden name="clothid" type="number" th:value="${clothData.id}" >
+                    <input type="submit" value="Delete page">
+                </form>
             </div>
 
         </div>

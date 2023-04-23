@@ -13,6 +13,9 @@ import ru.sinforge.clothingstore.Services.ClothService;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -40,7 +43,7 @@ public class ClothServiceImpl implements ClothService {
         _clothRepository.save(cloth);
         if(!img.isEmpty()) {
             try {
-                img.transferTo(new File(uploadPath + "/"+ cloth.getName() + cloth.getBrand_name()
+                img.transferTo(new File(uploadPath + "/clothImages/"+ cloth.getName() + cloth.getBrand_name()
                         + "." + Objects.requireNonNull(img.getOriginalFilename()).split("\\.")[1]));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -92,7 +95,7 @@ public class ClothServiceImpl implements ClothService {
             filteredCloth = filteredCloth.stream().filter(f -> filter.sections.contains(f.getSection())).toList();
 
         }
-        if(filter.gender != null) {
+        if(!Objects.equals(filter.gender, "All")) {
             filteredCloth = filteredCloth.stream().filter(f -> filter.gender.equals(f.getGender().name())).toList();
         }
         if(filter.colors != null && filter.colors.size() != 0) {
@@ -149,5 +152,45 @@ public class ClothServiceImpl implements ClothService {
     @Override
     public List<String> getAllSizes() {
         return _clothRepository.getDistinctSizes();
+    }
+
+    @Override
+    public void deletePage(Long clothid) {
+        _clothRepository.deleteById(clothid);
+    }
+
+    @Override
+    public void saveChanges(Cloth cloth, MultipartFile img)  {
+        Cloth clothInDb = _clothRepository.findById(cloth.getId()).get();
+        if(!img.isEmpty()) {
+            try {
+                Files.delete(Path.of(uploadPath + "/clothImages/"+ clothInDb.getName() + clothInDb.getBrand_name() + ".png"));
+                img.transferTo(new File(uploadPath + "/clothImages/"+ cloth.getName() + cloth.getBrand_name()
+                        + "." + Objects.requireNonNull(img.getOriginalFilename()).split("\\.")[1]));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            Path myImg = Paths.get(uploadPath + "/clothImages/"+ clothInDb.getName() + clothInDb.getBrand_name() + ".png");
+
+            try {
+                Files.move(myImg, myImg.resolveSibling( cloth.getName() + cloth.getBrand_name() + ".png"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        clothInDb.setSizes(cloth.sizes);
+        clothInDb.setName(cloth.getName());
+        clothInDb.setGender(cloth.getGender());
+        clothInDb.setPrice(cloth.getPrice());
+        clothInDb.setBrand_name(cloth.getBrand_name());
+        clothInDb.setColors(cloth.colors);
+        clothInDb.setDescription(cloth.getDescription());
+        clothInDb.setSection(cloth.getSection());
+
+
+        _clothRepository.save(clothInDb);
+
     }
 }

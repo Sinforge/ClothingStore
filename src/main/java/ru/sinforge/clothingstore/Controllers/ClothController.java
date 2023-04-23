@@ -72,7 +72,7 @@ public class ClothController {
         model.addAttribute("allCloth", _clothMapper
                .arrayClothToArrayReadDto(_clothService.filterCloth(filter)));
         model.addAttribute("path", path);
-        return "get_all_cloth";
+        return "list-of-cloth-component";
     }
 
     @GetMapping("/{id}")

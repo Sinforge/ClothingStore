@@ -6,6 +6,7 @@
     <title>Title</title>
 </head>
 <body>
+<div th:insert="~{header_component.html}"></div>
 <h1>Your shopping basket:</h1>
 <form action="#" method="post">
     <div th:each="data : ${basketData}" style="display: flex">

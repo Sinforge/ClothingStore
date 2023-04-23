@@ -5,6 +5,8 @@
     <title>Регистрация</title>
 </head>
 <body>
+<div th:insert="~{header_component.html}"></div>
+
 <h1>Регистрация</h1>
 <div th:if="${param.error}">
     Invalid username and password.

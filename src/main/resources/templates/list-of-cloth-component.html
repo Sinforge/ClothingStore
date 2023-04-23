@@ -1,0 +1,10 @@
+<div style="display: flex" id="list-of-cloth">
+  <div th:each="cloth : ${allCloth}" style="width: 150px">
+    <a style="text-decoration: none;" th:href="${'/cloth/' + cloth.id}">
+      <img width="150" height="150" th:src="${'/cloth/image/' + cloth.name + cloth.brand_name}">
+      <p th:text="${cloth.name}"></p>
+      <p th:text="${cloth.description}"></p>
+      <p th:text="${cloth.price}"></p>
+    </a>
+  </div>
+</div>

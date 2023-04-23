@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+ul {
+    list-style-type: none;
+    display : flex;
+}
+li {
+    padding: 30px;
+}
+a {
+    color: #000 !important;
+    text-decoration: none
+}
+</style>
+<header>
+    <nav >
+
+        <ul class="nav_bar">
+            <li class="nav-bar-element"><strong>Clothing Store</strong></li>
+            <li class="nav-bar-element"><a href="/cloth/all">Home</a></li>
+            <li sec:authorize="isAnonymous()" ><a href="/login">Log-in</a></li>
+            <li sec:authorize="isAnonymous()" class="nav-bar-element"><a href="/registration">Registration</a></li>
+            <li sec:authorize="isAuthenticated()" style="border-bottom: none;"><a href="/cloth/basket">Basket</a></li>
+            <li sec:authorize="hasAnyAuthority('ADMIN')" style="border-bottom: none" class="nav-bar-element"><a href="/create_cloth_page">Create Cloth Page</a></li>
+            <li sec:authorize="isAuthenticated()" >
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>
+            </li>
+
+
+        </ul>
+    </nav>
+</header>

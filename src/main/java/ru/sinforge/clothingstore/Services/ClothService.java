@@ -30,4 +30,8 @@ public interface ClothService {
     List<String> getAllSections();
     List<String> getAllColors();
     List<String> getAllSizes();
+
+    void deletePage(Long clothid);
+
+    void saveChanges(Cloth cloth, MultipartFile img);
 }

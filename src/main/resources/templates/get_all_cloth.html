@@ -5,27 +5,41 @@
     <title>Title</title>
 </head>
 <body>
+
+<div th:insert="~{header_component.html}"></div>
+
 <div style="display: flex; flex-direction: column">
-    <div id="filter" style="display: flex; flex-direction: column">
-
-        <label>Name of cloth</label><input name="name" id="name">
-
-        <label>Choose sizes<input  type="checkbox" name="sizes" th:each="size : ${allSizes}" th:value="${size}" th:text="${size}"></label>
-        <label>Choose brands<input type="checkbox" name="brandNames" th:each="brand : ${allBrands}" th:value="${brand}" th:text="${brand}"></label>
+    <div id="filter" style="display: flex; flex-direction: column; margin-bottom: 20px;   flex-wrap: wrap;">
+        <label>Name of cloth</label><input name="name" id="name" style="width: 100px; height: fit-content">
+        <div style="display: flex; flex-direction: column; width: 200px">
+            <p>Choose sizes</p>
+            <input  type="checkbox" name="sizes" th:each="size : ${allSizes}" th:value="${size}" th:text="${size}">
+        </div>
+        <div style="display: flex; flex-direction: column; width: 200px">
+            <p>Choose brands</p>
+            <input type="checkbox" name="brandNames" th:each="brand : ${allBrands}" th:value="${brand}" th:text="${brand}">
+        </div>
         <label>Choose gender
             <select id="gender" name="gender" size="1">
+                <option value="All">All</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Unisex">Unisex</option>
 
             </select>
         </label>
-        <label>Choose sections<input type="checkbox" name="sections" th:each="section : ${allSections}" th:value="${section}" th:text="${section}"></label>
-        <label>Choose colors<input type="checkbox" name="colors" th:each="color : ${allColors}" th:value="${color}" th:text="${color}"></label>
+        <div style="display: flex; flex-direction: column; width: 200px">
+            <p>Choose sections</p>
+            <input type="checkbox" name="sections" th:each="section : ${allSections}" th:value="${section}" th:text="${section}">
+        </div>
+        <div style="display: flex; flex-direction: column; width: 200px">
+            <p>Choose colors</p>
+            <input type="checkbox" name="colors" th:each="color : ${allColors}" th:value="${color}" th:text="${color}">
+        </div>
         <label>Minimal Price<input id="minPrice" name="minPrice" value="-1"></label>
         <label>Maximal Price<input id="maxPrice" name="maxPrice" value="-1"></label>
 
-        <button id="filterClothes">Filter clothes</button>
+        <button style="width: fit-content;height: fit-content" id="filterClothes">Filter clothes</button>
         <script>
             let filterObj = {
                 name: null,
@@ -70,7 +84,7 @@
                         body: JSON.stringify(filterObj)
                     })
                     .then(function(res){ return res.text(); })
-                    .then(function(html){ document.body.innerHTML = html;  });
+                    .then(function(html){ document.getElementById("list-of-cloth").innerHTML = html;  });
 
 
 
