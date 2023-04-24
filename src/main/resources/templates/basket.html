@@ -8,36 +8,44 @@
 <body>
 <div th:insert="~{header_component.html}"></div>
 <h1>Your shopping basket:</h1>
-<form action="#" method="post">
-    <div th:each="data : ${basketData}" style="display: flex">
-        <input name="ids" type="checkbox" th:value="${data.cloth.id}">
-        <div>
-            <img th:src="${'/cloth/image/' + data.cloth.getName()+data.cloth.getBrand_name()}" width="50" height="50">
+<div th:each="data : ${basketData}" style="display: flex">
+    <form action="#" method="post" >
+        <div  style="display: flex">
+            <input name="ids" type="checkbox" th:value="${data.cloth.id}">
+            <div>
+                <img th:src="${'/cloth/image/' + data.cloth.getName()+data.cloth.getBrand_name()}" width="50" height="50">
+            </div>
+            <div style="padding: 10px">
+                <p th:text="${data.cloth.name + ' ' + data.cloth.brand_name}" name="name" th:href="${'/cloth/' + data.cloth.id}"></p>
+            </div>
+            <div style="padding: 10px">
+                <p id="price" th:text="${data.cloth.price}+ ' &#8381'"></p>
+            </div>
+            <div style="padding: 10px">
+                <p id="color" th:text="${data.color}"></p>
+            </div>
+            <div style="padding: 10px">
+                <p id="size" th:text="${data.size}"></p>
+            </div>
+
+
+
         </div>
+        <input type="submit" value="Pay">
         <div style="padding: 10px">
-            <p th:text="${data.cloth.name + ' ' + data.cloth.brand_name}" name="name" th:href="${'/cloth/' + data.cloth.id}"></p>
-        </div>
-        <div style="padding: 10px">
-            <p id="price" th:text="${data.cloth.price}+ ' &#8381'"></p>
-        </div>
-        <div style="padding: 10px">
-            <p id="color" th:text="${data.color}"></p>
-        </div>
-        <div style="padding: 10px">
-            <p id="size" th:text="${data.size}"></p>
+            <!--/*@thymesVar id="b" type="ru.sinforge.clothingstore.Entities.BasketCloth"*/-->
+            <p id="resultPrice" th:text="${'Total price: ' + T(ru.sinforge.clothingstore.Helper).sum(basketData) + '&#8381'}"></p>
+
         </div>
 
 
-    </div>
-    <input type="submit" value="Pay">
-    <div style="padding: 10px">
-        <!--/*@thymesVar id="b" type="ru.sinforge.clothingstore.Entities.BasketCloth"*/-->
-        <p id="resultPrice" th:text="${'Total price: ' + T(ru.sinforge.clothingstore.Helper).sum(basketData) + '&#8381'}"></p>
+    </form>
+    <form method="post" action="/cloth/deleteFromBasket">
+        <input hidden th:value="${data.id}" name="basketClothId">
+        <input type="submit" value="X">
+    </form>
+</div>
 
-    </div>
-
-
-</form>
 
 </body>
 </html>

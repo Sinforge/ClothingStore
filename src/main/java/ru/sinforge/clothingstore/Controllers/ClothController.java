@@ -31,13 +31,11 @@ public class ClothController {
     private String path;
 
     private final ClothService _clothService;
-    private final ObjectMapper _objectMapper;
     private final ClothMapper _clothMapper = Mappers.getMapper(ClothMapper.class);
     private final BasketService _basketService;
 
-    public ClothController(ClothService clothService, ObjectMapper objectMapper, BasketService basketService)
+    public ClothController(ClothService clothService, BasketService basketService)
     {
-        _objectMapper = objectMapper;
         _basketService = basketService;
         _clothService = clothService;
     }
@@ -58,9 +56,8 @@ public class ClothController {
     @GetMapping("/image/{name}")
     @ResponseBody
     public byte[] getImage(@PathVariable String name) throws IOException {
-        File serverFile = new File(path + "clothImages/" + name + ".png");
+        File serverFile = _clothService.getClothImage(name);
         return Files.readAllBytes(serverFile.toPath());
-
     }
 
     @PostMapping(value="/all/filtered", produces = { MediaType.APPLICATION_JSON_VALUE})
@@ -103,6 +100,12 @@ public class ClothController {
         return "basket";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/deleteFromBasket")
+    public String deleteFromBasket(@AuthenticationPrincipal User user, @RequestParam Long basketClothId) {
+        _basketService.deleteFromBasket(basketClothId);
+        return "redirect:/cloth/basket";
+    }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/basket")
     public String payOrder(@RequestParam List<Long> ids, @AuthenticationPrincipal User user) {

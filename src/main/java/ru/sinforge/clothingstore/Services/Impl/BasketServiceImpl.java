@@ -44,4 +44,9 @@ public class BasketServiceImpl implements BasketService {
         return _basketRepo.findAllByUser(user);
     }
 
+    @Override
+    public void deleteFromBasket(Long basketClothId) {
+        _basketRepo.deleteById(basketClothId);
+    }
+
 }

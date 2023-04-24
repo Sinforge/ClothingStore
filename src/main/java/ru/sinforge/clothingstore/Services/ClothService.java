@@ -6,6 +6,7 @@ import ru.sinforge.clothingstore.Entities.Cloth;
 import ru.sinforge.clothingstore.Entities.Comment;
 import ru.sinforge.clothingstore.Entities.User;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -33,5 +34,8 @@ public interface ClothService {
 
     void deletePage(Long clothid);
 
+    File getClothImage(String clothName);
+
     void saveChanges(Cloth cloth, MultipartFile img);
+
 }

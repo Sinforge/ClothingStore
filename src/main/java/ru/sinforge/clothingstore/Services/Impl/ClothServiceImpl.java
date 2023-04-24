@@ -12,6 +12,7 @@ import ru.sinforge.clothingstore.Repositories.CommentRepository;
 import ru.sinforge.clothingstore.Services.ClothService;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -160,11 +161,24 @@ public class ClothServiceImpl implements ClothService {
     }
 
     @Override
+    public File getClothImage(String clothName) {
+        File f = new File(uploadPath + "/clothImages/");
+        File[] matchingFiles = f.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.startsWith(clothName);
+            }
+        });
+        assert matchingFiles != null;
+        return matchingFiles[0];
+    }
+
+    @Override
     public void saveChanges(Cloth cloth, MultipartFile img)  {
         Cloth clothInDb = _clothRepository.findById(cloth.getId()).get();
         if(!img.isEmpty()) {
             try {
-                Files.delete(Path.of(uploadPath + "/clothImages/"+ clothInDb.getName() + clothInDb.getBrand_name() + ".png"));
+                File prevImg = getClothImage(cloth.getName() + cloth.getBrand_name());
+                prevImg.delete();
                 img.transferTo(new File(uploadPath + "/clothImages/"+ cloth.getName() + cloth.getBrand_name()
                         + "." + Objects.requireNonNull(img.getOriginalFilename()).split("\\.")[1]));
             } catch (IOException e) {
@@ -172,10 +186,9 @@ public class ClothServiceImpl implements ClothService {
             }
         }
         else {
-            Path myImg = Paths.get(uploadPath + "/clothImages/"+ clothInDb.getName() + clothInDb.getBrand_name() + ".png");
-
+            File prevImg = getClothImage(cloth.getName() + cloth.getBrand_name());
             try {
-                Files.move(myImg, myImg.resolveSibling( cloth.getName() + cloth.getBrand_name() + ".png"));
+                Files.move(prevImg.toPath(), prevImg.toPath().resolveSibling( cloth.getName() + cloth.getBrand_name() + prevImg.getName().split("\\.")[1]));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -193,4 +206,6 @@ public class ClothServiceImpl implements ClothService {
         _clothRepository.save(clothInDb);
 
     }
+
+
 }
