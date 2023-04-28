@@ -168,7 +168,7 @@ public class ClothServiceImpl implements ClothService {
                 return name.startsWith(clothName);
             }
         });
-        assert matchingFiles != null;
+
         return matchingFiles[0];
     }
 
@@ -186,9 +186,9 @@ public class ClothServiceImpl implements ClothService {
             }
         }
         else {
-            File prevImg = getClothImage(cloth.getName() + cloth.getBrand_name());
+            File prevImg = getClothImage(clothInDb.getName() + clothInDb.getBrand_name());
             try {
-                Files.move(prevImg.toPath(), prevImg.toPath().resolveSibling( cloth.getName() + cloth.getBrand_name() + prevImg.getName().split("\\.")[1]));
+                Files.move(prevImg.toPath(), prevImg.toPath().resolveSibling( cloth.getName() + cloth.getBrand_name() + "." +  prevImg.getName().split("\\.")[1]));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
