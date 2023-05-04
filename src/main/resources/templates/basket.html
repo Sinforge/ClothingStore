@@ -32,11 +32,6 @@
 
         </div>
         <input type="submit" value="Pay">
-        <div style="padding: 10px">
-            <!--/*@thymesVar id="b" type="ru.sinforge.clothingstore.Entities.BasketCloth"*/-->
-            <p id="resultPrice" th:text="${'Total price: ' + T(ru.sinforge.clothingstore.Helper).sum(basketData) + '&#8381'}"></p>
-
-        </div>
 
 
     </form>
@@ -45,6 +40,12 @@
         <input type="submit" value="X">
     </form>
 </div>
+<div style="padding: 10px">
+    <!--/*@thymesVar id="b" type="ru.sinforge.clothingstore.Entities.BasketCloth"*/-->
+    <p id="resultPrice" th:text="${'Total price: ' + T(ru.sinforge.clothingstore.Helper).sum(basketData) + '&#8381'}"></p>
+
+</div>
+
 
 
 </body>

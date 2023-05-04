@@ -177,7 +177,7 @@ public class ClothServiceImpl implements ClothService {
         Cloth clothInDb = _clothRepository.findById(cloth.getId()).get();
         if(!img.isEmpty()) {
             try {
-                File prevImg = getClothImage(cloth.getName() + cloth.getBrand_name());
+                File prevImg = getClothImage(clothInDb.getName() + clothInDb.getBrand_name());
                 prevImg.delete();
                 img.transferTo(new File(uploadPath + "/clothImages/"+ cloth.getName() + cloth.getBrand_name()
                         + "." + Objects.requireNonNull(img.getOriginalFilename()).split("\\.")[1]));
