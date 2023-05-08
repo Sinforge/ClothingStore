@@ -101,8 +101,8 @@ public class ClothController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/deleteFromBasket")
-    public String deleteFromBasket(@AuthenticationPrincipal User user, @RequestParam Long basketClothId) {
+    @PostMapping("/deleteFromBasket/{basketClothId}")
+    public String deleteFromBasket(@AuthenticationPrincipal User user, @PathVariable Long basketClothId) {
         _basketService.deleteFromBasket(basketClothId);
         return "redirect:/cloth/basket";
     }

@@ -7,10 +7,24 @@
 </head>
 <body>
 <div th:insert="~{header_component.html}"></div>
+<script>
+    function deleteCloth(id) {
+        fetch('/cloth/deleteFromBasket/' + id, {
+            credentials: "same-origin",
+            method: "post"
+        })
+            .then((response)=> {
+                return response.text();
+            })
+            .then((data) => {
+                document.body.innerHTML = data;
+            });
+
+    }
+</script>
 <h1>Your shopping basket:</h1>
-<div th:each="data : ${basketData}" style="display: flex">
     <form action="#" method="post" >
-        <div  style="display: flex">
+        <div th:each="data : ${basketData}" style="display: flex">
             <input name="ids" type="checkbox" th:value="${data.cloth.id}">
             <div>
                 <img th:src="${'/cloth/image/' + data.cloth.getName()+data.cloth.getBrand_name()}" width="50" height="50">
@@ -28,18 +42,15 @@
                 <p id="size" th:text="${data.size}"></p>
             </div>
 
-
+            <button type="button" th:onclick="'javascript:deleteCloth(' + ${data.id} + ')'"> X</button>
 
         </div>
+
+
+
         <input type="submit" value="Pay">
-
-
     </form>
-    <form method="post" action="/cloth/deleteFromBasket">
-        <input hidden th:value="${data.id}" name="basketClothId">
-        <input type="submit" value="X">
-    </form>
-</div>
+
 <div style="padding: 10px">
     <!--/*@thymesVar id="b" type="ru.sinforge.clothingstore.Entities.BasketCloth"*/-->
     <p id="resultPrice" th:text="${'Total price: ' + T(ru.sinforge.clothingstore.Helper).sum(basketData) + '&#8381'}"></p>

@@ -19,11 +19,9 @@ import ru.sinforge.clothingstore.Services.UserService;
 @ComponentScan
 public class SecurityConfig {
     private final UserService userService;
-
     public SecurityConfig(UserService userService) {
         this.userService = userService;
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -50,8 +48,6 @@ public class SecurityConfig {
         provider.setUserDetailsService(userService);
         return provider;
     }
-
-
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
